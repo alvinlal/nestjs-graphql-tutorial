@@ -13,6 +13,7 @@ import { UtilsModule } from './utils/utils.module';
 import { PubsubModule } from './pubsub/pubsub.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { ComplexityPlugin } from './plugins/ComplexityPlugin';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -41,7 +42,10 @@ import { AuthModule } from './auth/auth.module';
       },
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       playground: false,
-      plugins: [ApolloServerPluginLandingPageLocalDefault()],
+      plugins: [
+        ApolloServerPluginLandingPageLocalDefault(),
+        new ComplexityPlugin(8),
+      ],
     }),
     PetsModule,
     OwnersModule,
