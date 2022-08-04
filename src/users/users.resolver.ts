@@ -13,7 +13,6 @@ export class UsersResolver {
   async createUser(
     @Args('createUserInput') createUserInput: CreateUserInput,
   ): Promise<User> {
-    console.log(createUserInput);
     const newUser = await this.usersService.create(createUserInput);
     return newUser;
   }
