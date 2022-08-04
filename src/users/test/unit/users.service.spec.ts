@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Repository } from 'typeorm';
-import { CreateUserInput } from './dto/create-user.input';
-import { User } from './entities/User.entity';
-import { UsersService } from './users.service';
+import { CreateUserInput } from '../../dto/create-user.input';
+import { User } from '../../entities/User.entity';
+import { UsersService } from '../../users.service';
 import { faker } from '@faker-js/faker';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { RepoMockType } from '../../test/types';
+import { RepoMockType } from '../../../../test/types';
 
 describe('UserService', () => {
   let usersService: UsersService;

@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { Test, TestingModule } from '@nestjs/testing';
-import { CreateUserInput } from './dto/create-user.input';
-import { UsersResolver } from './users.resolver';
-import { UsersService } from './users.service';
+import { CreateUserInput } from '../../dto/create-user.input';
+import { UsersResolver } from '../../users.resolver';
+import { UsersService } from '../../users.service';
 
 describe('UsersResolver', () => {
   let usersResolver: UsersResolver;

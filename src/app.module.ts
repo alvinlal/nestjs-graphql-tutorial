@@ -26,9 +26,10 @@ import { ComplexityPlugin } from './plugins/ComplexityPlugin';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_NAME,
-      synchronize: process.env.NODE_ENV == 'development',
       autoLoadEntities: true,
-      logging: true,
+      synchronize: process.env.NODE_ENV == 'test',
+      logging: process.env.NODE_ENV == 'development',
+      dropSchema: process.env.NODE_ENV == 'test',
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       cors: {
