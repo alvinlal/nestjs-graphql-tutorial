@@ -18,10 +18,13 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:int": "dotenv -e .env.test -- jest -i --no-cache --config jest-int.json",
-    "test:int:watch": "dotenv -e .env.test -- jest -i --no-cache --watch --config jest-int.json",
-    "test:e2e": "dotenv -e .env.test -- jest -i --no-cache --config jest-e2e.json --detectOpenHandles",
-    "test:e2e:watch": "dotenv -e .env.test -- jest -i --no-cache --watch --config jest-e2e.json"
+    "test:int": "npm run build && dotenv -e .env.test -- jest -i --no-cache --config jest-int.json",
+    "test:int:watch": "npm run build && dotenv -e .env.test -- jest -i --no-cache --config jest-int.json --watch",
+    "test:e2e": "npm run build && dotenv -e .env.test -- jest -i --no-cache --config jest-e2e.json --detectOpenHandles",
+    "test:e2e:watch": "npm run build && dotenv -e .env.test -- jest -i --no-cache --config jest-e2e.json --detectOpenHandles --watch",
+    "typeorm": "typeorm-ts-node-esm -d ./migration.config.ts",
+    "migration:generate": "npm run typeorm -- migration:generate ./src/database/migrations/$npm_config_name",
+    "migration:run": "npm run typeorm -- migration:run"
   },
   "dependencies": {
     "@nestjs/apollo": "^10.0.19",
@@ -37,6 +40,7 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.1",
     "graphql": "^16.5.0",
     "graphql-query-complexity": "^0.11.0",
     "graphql-redis-subscriptions": "^2.5.0",
@@ -74,7 +78,7 @@
     "supertest": "^6.1.3",
     "ts-jest": "28.0.1",
     "ts-loader": "^9.2.3",
-    "ts-node": "^10.0.0",
+    "ts-node": "^10.9.1",
     "tsconfig-paths": "4.0.0",
     "typescript": "^4.3.5"
   },

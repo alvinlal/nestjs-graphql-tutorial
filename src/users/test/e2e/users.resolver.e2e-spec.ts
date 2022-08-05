@@ -1,6 +1,5 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { DataSource } from 'typeorm';
 import { AppModule } from '../../../app.module';
 import * as request from 'supertest';
 import { faker } from '@faker-js/faker';
@@ -8,7 +7,7 @@ import { CreateUserInput } from '../../dto/create-user.input';
 
 describe('UserResolver (e2e)', () => {
   let app: INestApplication;
-  let connection: DataSource;
+  // let connection: DataSource;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -16,7 +15,7 @@ describe('UserResolver (e2e)', () => {
     }).compile();
 
     app = module.createNestApplication();
-    connection = module.get<DataSource>(DataSource);
+    // connection = module.get<DataSource>(DataSource);
     await app.init();
   });
 
