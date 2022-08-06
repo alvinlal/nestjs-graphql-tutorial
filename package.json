@@ -24,7 +24,9 @@
     "test:e2e:watch": "npm run build && dotenv -e .env.test -- jest -i --no-cache --config jest-e2e.json --detectOpenHandles --watch",
     "typeorm": "typeorm-ts-node-esm -d ./migration.config.ts",
     "migration:generate": "npm run typeorm -- migration:generate ./src/database/migrations/$npm_config_name",
-    "migration:run": "npm run typeorm -- migration:run"
+    "migration:run": "npm run typeorm -- migration:run",
+    "migration:create": "npm run typeorm -- migration:create ./src/database/migrations/$npm_config_name",
+    "migration:revert": "npm run typeorm migration:revert"
   },
   "dependencies": {
     "@nestjs/apollo": "^10.0.19",

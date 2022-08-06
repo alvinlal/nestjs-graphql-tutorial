@@ -42,8 +42,4 @@ export class PetsService {
   findOne(id: number): Promise<Pet> {
     return this.petsRepository.findOne({ where: { id } });
   }
-
-  getOwner(ownerId: number): Promise<Owner> {
-    return this.ownersService.findOne(ownerId);
-  }
 }

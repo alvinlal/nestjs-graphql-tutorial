@@ -31,7 +31,14 @@ export class OwnersService {
     });
   }
 
-  findOne(id: number) {
-    return this.ownersRepository.findOne({ where: { id } });
+  findOne(id: number, info) {
+    const shouldJoinPets = this.utilsService.doesPathExist(info.fieldNodes, [
+      'owner',
+      'pets',
+    ]);
+    return this.ownersRepository.findOne({
+      where: { id },
+      relations: { ...(shouldJoinPets && { pets: true }) },
+    });
   }
 }
