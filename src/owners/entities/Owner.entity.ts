@@ -9,20 +9,20 @@ export class Owner {
    * unique id of an owner
    */
   @PrimaryGeneratedColumn()
-  @Field(() => Int)
+  @Field(() => Int, { description: 'unique id of the owner' })
   id: number;
 
   /**
    * name of the owner
    */
   @Column()
-  @Field()
+  @Field({ description: 'name of the owner' })
   name: string;
 
   /**
    * pets owned by the owner
    */
   @OneToMany(() => Pet, (pet) => pet.owner)
-  @Field(() => [Pet])
+  @Field(() => [Pet], { description: 'list of pets owned by the owner' })
   pets?: Pet[];
 }

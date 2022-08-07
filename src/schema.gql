@@ -3,21 +3,38 @@
 # ------------------------------------------------------
 
 type Pet {
+  """unique id of the pet"""
   id: Int!
+
+  """name of the pet"""
   name: String!
+
+  """type of the pet"""
   type: String
+
+  """id of the owner"""
   ownerId: Int!
+
+  """owner of the pet"""
   owner: Owner!
 }
 
 type Owner {
+  """unique id of the owner"""
   id: Int!
+
+  """name of the owner"""
   name: String!
+
+  """list of pets owned by the owner"""
   pets: [Pet!]!
 }
 
 type User {
+  """unique id of the user"""
   id: Int!
+
+  """email of the user"""
   email: String!
 }
 
