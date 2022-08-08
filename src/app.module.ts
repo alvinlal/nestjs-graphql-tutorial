@@ -47,7 +47,7 @@ import { ComplexityPlugin } from './plugins/ComplexityPlugin';
       playground: false,
       plugins: [
         ApolloServerPluginLandingPageLocalDefault(),
-        new ComplexityPlugin(8),
+        new ComplexityPlugin(20),
       ],
     }),
     PetsModule,

@@ -37,8 +37,11 @@ export class PetsResolver {
   }
 
   @Query(() => Pet, { name: 'pet', nullable: true })
-  findOne(@Args('id', { type: () => Int }) id: number): Promise<Pet> {
-    return this.petsService.findOne(id);
+  findOne(
+    @Args('id', { type: () => Int }) id: number,
+    @Info() info,
+  ): Promise<Pet> {
+    return this.petsService.findOne(id, info);
   }
 
   @Subscription(() => Pet)

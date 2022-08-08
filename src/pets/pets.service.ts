@@ -39,7 +39,22 @@ export class PetsService {
     });
   }
 
-  findOne(id: number): Promise<Pet> {
-    return this.petsRepository.findOne({ where: { id } });
+  findOne(id: number, info): Promise<Pet> {
+    const shouldJoinOwner = this.utilsService.doesPathExist(info.fieldNodes, [
+      'pet',
+      'owner',
+    ]);
+    const shouldJoinOwnerPets = this.utilsService.doesPathExist(
+      info.fieldNodes,
+      ['pet', 'owner', 'pets'],
+    );
+
+    return this.petsRepository.findOne({
+      where: { id },
+      relations: [
+        ...(shouldJoinOwner && ['owner']),
+        ...(shouldJoinOwnerPets && ['owner.pets']),
+      ],
+    });
   }
 }
