@@ -11,6 +11,7 @@ export class PetsService {
   constructor(
     @InjectRepository(Pet) private readonly petsRepository: Repository<Pet>,
     @Inject(forwardRef(() => OwnersService))
+    private readonly ownersService: OwnersService,
     private readonly utilsService: UtilsService,
   ) {}
 
