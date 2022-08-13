@@ -47,6 +47,7 @@ type Query {
   owner(id: Int!): Owner
   users: [User!]!
   user(id: Int!): User!
+  me: User!
 }
 
 type Mutation {

@@ -1,5 +1,5 @@
 import { UseGuards } from '@nestjs/common';
-import { Args, Context, Mutation, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { User } from '../users/entities/User.entity';
 import { AuthService } from './auth.service';
 import { LoginUserInput } from './dto/login-user.input';
@@ -7,7 +7,8 @@ import LocalAuthGuard from './guards/LocalAuth.guard';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Ctx } from '../types/Ctx';
-
+import { CurrentUser } from '../decorators/CurrentUser';
+import JwtAuthGuard from './guards/JwtAuth.guard';
 @Resolver()
 export class AuthResolver {
   constructor(
@@ -34,5 +35,11 @@ export class AuthResolver {
         this.configService.get('NODE_ENV') === 'production' ? 'lax' : 'none',
     });
     return ctx.user;
+  }
+
+  @Query(() => User, { name: 'me' })
+  @UseGuards(JwtAuthGuard)
+  me(@CurrentUser() user: User) {
+    return user;
   }
 }
