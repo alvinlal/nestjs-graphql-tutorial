@@ -5,6 +5,8 @@ import { OwnersService } from '../owners/owners.service';
 import { UtilsService } from '../utils/utils.service';
 import { CreatePetInput } from './dto/create-pet.input';
 import { Pet } from './entities/Pet.entity';
+import { validate } from 'class-validator';
+import CreatePetError from './mutationErrors/CreatePetError';
 
 @Injectable()
 export class PetsService {
@@ -26,6 +28,24 @@ export class PetsService {
         owner: true,
       },
     });
+  }
+
+  async validateCreatePetInput(
+    createPetInput: CreatePetInput,
+  ): Promise<CreatePetError> {
+    const input = new CreatePetInput();
+    input.name = createPetInput.name;
+    input.type = createPetInput.type;
+    input.ownerId = createPetInput.ownerId;
+
+    const validationErrors = await validate(input);
+    const errors: CreatePetError = {};
+
+    validationErrors.forEach((error) => {
+      errors[`${error.property}Errors`] = Object.values(error.constraints);
+    });
+
+    return errors;
   }
 
   findAll(info): Promise<Pet[]> {

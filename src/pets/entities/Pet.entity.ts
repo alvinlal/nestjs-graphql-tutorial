@@ -3,7 +3,9 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Owner } from '../../owners/entities/Owner.entity';
 
 @Entity()
-@ObjectType()
+@ObjectType({
+  description: 'entity representing a pet',
+})
 export class Pet {
   /**
    * unique id of a pet

@@ -10,6 +10,7 @@ import {
 } from '@nestjs/graphql';
 import { RedisPubSub } from 'graphql-redis-subscriptions';
 import { PUB_SUB } from '../pubsub/pubsub.constants';
+import { CreatePetResult } from './unions/createPetResult';
 import { CreatePetInput } from './dto/create-pet.input';
 import { Pet } from './entities/Pet.entity';
 import { PET_ADDED } from './pets.constants';
@@ -22,10 +23,18 @@ export class PetsResolver {
     private readonly petsService: PetsService,
   ) {}
 
-  @Mutation(() => Pet)
+  @Mutation(() => CreatePetResult)
   async createPet(
     @Args('createPetInput') createPetInput: CreatePetInput,
-  ): Promise<Pet> {
+  ): Promise<typeof CreatePetResult> {
+    const errors = await this.petsService.validateCreatePetInput(
+      createPetInput,
+    );
+
+    if (Object.keys(errors).length) {
+      return errors;
+    }
+
     const newPet = await this.petsService.createPet(createPetInput);
     this.pubSub.publish(PET_ADDED, { petAdded: newPet });
     return newPet;

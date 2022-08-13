@@ -2,6 +2,7 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""entity representing a pet"""
 type Pet {
   """unique id of the pet"""
   id: Int!
@@ -19,6 +20,7 @@ type Pet {
   owner: Owner!
 }
 
+"""entity representing an owner"""
 type Owner {
   """unique id of the owner"""
   id: Int!
@@ -48,12 +50,22 @@ type Query {
 }
 
 type Mutation {
-  createPet(createPetInput: CreatePetInput!): Pet!
+  createPet(createPetInput: CreatePetInput!): CreatePetResult!
   createOwner(createOwnerInput: CreateOwnerInput!): Owner!
   createUser(createUserInput: CreateUserInput!): User!
   login(loginUserInput: LoginUserInput!): User!
 }
 
+union CreatePetResult = Pet | CreatePetError
+
+"""field errors while creating a pet"""
+type CreatePetError {
+  nameErrors: [String!]
+  typeErrors: [String!]
+  ownerIdErrors: [String!]
+}
+
+"""fields required to create a pet"""
 input CreatePetInput {
   name: String!
   type: String

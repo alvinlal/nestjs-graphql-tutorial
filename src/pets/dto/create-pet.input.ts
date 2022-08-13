@@ -1,7 +1,9 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
-import { IsAlpha, IsNumber } from 'class-validator';
+import { IsAlpha, IsNumber, MaxLength } from 'class-validator';
 
-@InputType()
+@InputType({
+  description: 'fields required to create a pet',
+})
 export class CreatePetInput {
   @Field()
   @IsAlpha()
@@ -9,6 +11,7 @@ export class CreatePetInput {
 
   @Field({ nullable: true })
   @IsAlpha()
+  @MaxLength(4)
   type?: string;
 
   @Field(() => Int)

@@ -1,7 +1,7 @@
-import { BadRequestException, ValidationPipe } from '@nestjs/common';
+// import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationError } from 'class-validator';
+// import { ValidationError } from 'class-validator';
 import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
@@ -14,21 +14,22 @@ async function bootstrap() {
   });
 
   // class-validator validation pipe
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      exceptionFactory: (validationErrors: ValidationError[] = []) => {
-        return new BadRequestException(
-          validationErrors.map((error) => {
-            delete error.target;
-            delete error.children;
-            delete error.value;
-            return error;
-          }),
-        );
-      },
-    }),
-  );
+  // app.useGlobalPipes(
+  //   new ValidationPipe({
+  //     whitelist: true,
+  //     transform: true,
+  //     exceptionFactory: (validationErrors: ValidationError[] = []) => {
+  //       return new BadRequestException(
+  //         validationErrors.map((error) => {
+  //           delete error.target;
+  //           delete error.children;
+  //           delete error.value;
+  //           return error;
+  //         }),
+  //       );
+  //     },
+  //   }),
+  // );
 
   app.use(cookieParser());
 
